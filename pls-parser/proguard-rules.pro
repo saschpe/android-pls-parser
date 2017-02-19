@@ -1,0 +1,2 @@
+-keepattributes EnclosingMethod
+-keep class saschpe.android.parser.pls.** { *; }
