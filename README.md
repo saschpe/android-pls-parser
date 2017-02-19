@@ -13,6 +13,8 @@ To parse a playlist file provided as an InputStream:
 // ...
 Playlist playlist = PlaylistParser.parse(inputStream);
 for (Playlist.Track track : playlist.getTracks()) {
+    track.getFile();
+    track.getTitle();
     // ...
 }
 ```
@@ -22,6 +24,8 @@ To parse a playlist file provided as a String:
 // ...
 Playlist playlist = PlaylistParser.parse(string);
 for (Playlist.Track track : playlist.getTracks()) {
+    track.getFile();
+    track.getTitle();
     // ...
 }
 ```
