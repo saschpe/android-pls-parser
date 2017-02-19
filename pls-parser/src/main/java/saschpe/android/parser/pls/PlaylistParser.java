@@ -36,9 +36,9 @@ import java.util.regex.Pattern;
  */
 public final class PlaylistParser {
     private static final String TAG = PlaylistParser.class.getSimpleName();
-    //private static final Pattern SECTION_HEADER_PATTERN = Pattern.compile("\\s*\\[playlist\\]\\s*");
-    private static final Pattern NUMBER_OF_ENTRIES_PATTERN = Pattern.compile("\\s*NumberOfEntries=(.*)", Pattern.CASE_INSENSITIVE);
-    private static final Pattern VERSION_PATTERN = Pattern.compile("\\s*Version=(.*)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern HEADER_PATTERN = Pattern.compile("\\s*\\[playlist\\]\\s*");
+    private static final Pattern FOOTER_NUMBER_OF_ENTRIES_PATTERN = Pattern.compile("\\s*NumberOfEntries=(.*)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FOOTER_VERSION_PATTERN = Pattern.compile("\\s*Version=(.*)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern FILE_PATTERN = Pattern.compile("\\s*File(\\d+)=(.*)", Pattern.CASE_INSENSITIVE);
     private static final Pattern TITLE_PATTERN = Pattern.compile("\\s*Title(\\d+)=(.*)", Pattern.CASE_INSENSITIVE);
@@ -72,23 +72,23 @@ public final class PlaylistParser {
                 }
                 Matcher titleMatcher = TITLE_PATTERN.matcher(line);
                 if (titleMatcher.matches()) {
-                    int trackIndex = getTrackIndexAndAddIfMissing(tracks, fileMatcher);
+                    int trackIndex = getTrackIndexAndAddIfMissing(tracks, titleMatcher);
                     tracks.get(trackIndex).title = titleMatcher.group(2).trim();
                     continue;
                 }
                 Matcher lengthMatcher = LENGTH_PATTERN.matcher(line);
-                if (titleMatcher.matches()) {
-                    int trackIndex = getTrackIndexAndAddIfMissing(tracks, fileMatcher);
+                if (lengthMatcher.matches()) {
+                    int trackIndex = getTrackIndexAndAddIfMissing(tracks, lengthMatcher);
                     tracks.get(trackIndex).length = Long.valueOf(lengthMatcher.group(2).trim());
                     continue;
                 }
 
-                Matcher numberOfEntries = NUMBER_OF_ENTRIES_PATTERN.matcher(line);
+                Matcher numberOfEntries = FOOTER_NUMBER_OF_ENTRIES_PATTERN.matcher(line);
                 if (numberOfEntries.matches()) {
                     entries = Integer.valueOf(numberOfEntries.group(1).trim());
                     continue;
                 }
-                Matcher versionMatcher = VERSION_PATTERN.matcher(line);
+                Matcher versionMatcher = FOOTER_VERSION_PATTERN.matcher(line);
                 if (versionMatcher.matches()) {
                     version = Integer.valueOf(versionMatcher.group(1).trim());
                 }
@@ -134,8 +134,10 @@ public final class PlaylistParser {
 
     private static int getTrackIndexAndAddIfMissing(final List<Playlist.Track> tracks, final Matcher matcher) {
         int trackIndex = Integer.valueOf(matcher.group(1)) - 1;
-        if (tracks.size() <= trackIndex) {
-            tracks.add(new Playlist.Track());
+        try {
+            tracks.get(trackIndex);
+        } catch (IndexOutOfBoundsException e) {
+            tracks.add(trackIndex, new Playlist.Track());
         }
         return trackIndex;
     }

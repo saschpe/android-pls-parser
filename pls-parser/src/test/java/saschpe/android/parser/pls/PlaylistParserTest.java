@@ -54,6 +54,26 @@ public final class PlaylistParserTest {
         assertNotNull(playlist);
         assertEquals(TEST_PLAYLIST_SIZE, playlist.getTracks().size());
         assertEquals(TEST_PLAYLIST_VERSION, playlist.getVersion());
+
+        Playlist.Track track1 = playlist.getTracks().get(0);
+        assertEquals("http://relay5.181.fm:8068", track1.getFile());
+        assertEquals(null, track1.getTitle());
+        assertEquals(-1, track1.getLength());
+
+        Playlist.Track track2 = playlist.getTracks().get(1);
+        assertEquals("example2.mp3", track2.getFile());
+        assertEquals("Just some local audio that is 2mins long", track2.getTitle());
+        assertEquals(120, track2.getLength());
+
+        Playlist.Track track3 = playlist.getTracks().get(2);
+        assertEquals("F:\\Music\\whatever.m4a", track3.getFile());
+        assertEquals("absolute path on Windows", track3.getTitle());
+        assertEquals(0, track3.getLength());
+
+        Playlist.Track track4 = playlist.getTracks().get(3);
+        assertEquals("%UserProfile%\\Music\\short.ogg", track4.getFile());
+        assertEquals("example for an Environment variable", track4.getTitle());
+        assertEquals(5, track4.getLength());
     }
 
     @Test
