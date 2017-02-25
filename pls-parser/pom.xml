@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>saschpe.android</groupId>
   <artifactId>pls-parser</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>aar</packaging>
   <name>pls-parser</name>
   <description>Playlist file (*.pls) parser for Android</description>

@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-pls-parser.iml" filepath="$PROJECT_DIR$/android-pls-parser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-versioninfo.iml" filepath="$PROJECT_DIR$/android-versioninfo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pls-parser/pls-parser.iml" filepath="$PROJECT_DIR$/pls-parser/pls-parser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/versioninfo/versioninfo.iml" filepath="$PROJECT_DIR$/versioninfo/versioninfo.iml" />
     </modules>
   </component>
 </project>
