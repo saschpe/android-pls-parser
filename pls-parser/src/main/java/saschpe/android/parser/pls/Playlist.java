@@ -50,6 +50,14 @@ public final class Playlist {
         return version;
     }
 
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "tracks=" + tracks +
+                ", version=" + version +
+                '}';
+    }
+
     /**
      * Playlist file track.
      */
@@ -68,6 +76,15 @@ public final class Playlist {
 
         public long getLength() {
             return length;
+        }
+
+        @Override
+        public String toString() {
+            return "Track{" +
+                    "file='" + file + '\'' +
+                    ", title='" + title + '\'' +
+                    ", length=" + length +
+                    '}';
         }
     }
 }
