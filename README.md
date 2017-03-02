@@ -5,8 +5,8 @@
 [![Build Status](https://travis-ci.org/saschpe/android-pls-parser.svg?branch=master)](https://travis-ci.org/saschpe/android-pls-parser) 
 [![Methods and size](https://img.shields.io/badge/Methods and size-47 | 6 KB-e91e63.svg)](http://www.methodscount.com/?lib=saschpe.android%3Apls-parser%3A1.0.2)
 
-A playlist file (*.pls) parser library for Android
-
+A playlist file (*\*.pls*) parser library for Android. Please check the
+format's [Wikipedia page][wp_pls] for details.
 
 # Usage
 To parse a playlist file provided as an InputStream:
@@ -57,3 +57,4 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/
+ [wp_pls]: https://en.wikipedia.org/wiki/PLS_(file_format)
