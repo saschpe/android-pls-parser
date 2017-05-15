@@ -3,7 +3,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-VersionInfo-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3832)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/saschpe/android-pls-parser.svg?branch=master)](https://travis-ci.org/saschpe/android-pls-parser) 
-[![Methods and size](https://img.shields.io/badge/Methods and size-47 | 6 KB-e91e63.svg)](http://www.methodscount.com/?lib=saschpe.android%3Apls-parser%3A1.0.2)
+<a href="http://www.methodscount.com/?lib=saschpe.android%3Apls-parser%3A1.0.2"><img src="https://img.shields.io/badge/Methods and size-47 | 6 KB-e91e63.svg"/></a>
 
 A playlist file (*.pls) parser library for Android. Please check the
 format's [Wikipedia page][wp_pls] for details.
