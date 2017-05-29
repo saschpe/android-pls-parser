@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
  */
 public final class PlaylistParser {
     private static final String TAG = PlaylistParser.class.getSimpleName();
-    private static final Pattern HEADER_PATTERN = Pattern.compile("\\s*\\[playlist\\]\\s*");
+    //private static final Pattern HEADER_PATTERN = Pattern.compile("\\s*\\[playlist]\\s*");
     private static final Pattern FOOTER_NUMBER_OF_ENTRIES_PATTERN = Pattern.compile("\\s*NumberOfEntries=(.*)", Pattern.CASE_INSENSITIVE);
     private static final Pattern FOOTER_VERSION_PATTERN = Pattern.compile("\\s*Version=(.*)", Pattern.CASE_INSENSITIVE);
 
@@ -53,8 +53,12 @@ public final class PlaylistParser {
      *
      * @param inputStream PLS file {@link InputStream}
      * @return {@link Playlist} instance
+     * @throws IllegalArgumentException If inputStream is null
      */
     public static Playlist parse(final InputStream inputStream) {
+        if (inputStream == null) {
+            throw new IllegalArgumentException("Input stream is null!");
+        }
         List<Playlist.Track> tracks = new ArrayList<>();
         int version = -1, entries = -1;
 
@@ -109,15 +113,15 @@ public final class PlaylistParser {
      *
      * @param string PLS file {@link String}
      * @param encoding String encoding (such as "UTF-8")
-     * @return {@link Playlist} instance
+     * @return {@link Playlist} instance or null in case of errors
+     * @throws IllegalArgumentException If either parameter is null
+     * @throws UnsupportedEncodingException In case an invalid encoding is provided
      */
-    public static Playlist parse(final String string, final String encoding) {
-        try {
-            return parse(new ByteArrayInputStream(string.getBytes(encoding)));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+    public static Playlist parse(final String string, final String encoding) throws UnsupportedEncodingException {
+        if (string == null || encoding == null) {
+            throw new IllegalArgumentException("Either 'string' or 'encoding' is null!");
         }
-        return null;
+        return parse(new ByteArrayInputStream(string.getBytes(encoding)));
     }
 
     /**
@@ -127,9 +131,14 @@ public final class PlaylistParser {
      *
      * @param string PLS file {@link String}
      * @return {@link Playlist} instance
+     * @throws IllegalArgumentException If string is null
      */
     public static Playlist parse(final String string) {
-        return parse(string, "UTF-8");
+        try {
+            return parse(string, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return null; // Note: This should never happen with UTF-8
+        }
     }
 
     private static int getTrackIndexAndAddIfMissing(final List<Playlist.Track> tracks, final Matcher matcher) {

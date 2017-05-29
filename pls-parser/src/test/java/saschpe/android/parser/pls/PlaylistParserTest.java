@@ -16,9 +16,12 @@
 
 package saschpe.android.parser.pls;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -26,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 
 public final class PlaylistParserTest {
     private static final String ENCODING_UTF8 = "UTF-8";
+    private static final String ENCODING_ASCII = "ascii";
     private static final String TEST_PLS =
             "[playlist]\n" +
             "\n" +
@@ -44,6 +48,9 @@ public final class PlaylistParserTest {
             "Version=2";
     private static final int TEST_PLAYLIST_SIZE = 4;
     private static final long TEST_PLAYLIST_VERSION = 2;
+
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void parseInputStream() throws UnsupportedEncodingException {
@@ -77,9 +84,20 @@ public final class PlaylistParserTest {
     }
 
     @Test
-    public void parseStringWithCustomEncoding() {
+    public void parseStringWithCustomUtf8Encoding() throws UnsupportedEncodingException {
         // Arrange, act
         Playlist playlist = PlaylistParser.parse(TEST_PLS, ENCODING_UTF8);
+
+        // Verify
+        assertNotNull(playlist);
+        assertEquals(TEST_PLAYLIST_SIZE, playlist.getTracks().size());
+        assertEquals(TEST_PLAYLIST_VERSION, playlist.getVersion());
+    }
+
+    @Test
+    public void parseStringWithCustomAsciiEncoding() throws UnsupportedEncodingException {
+        // Arrange, act
+        Playlist playlist = PlaylistParser.parse(TEST_PLS, ENCODING_ASCII);
 
         // Verify
         assertNotNull(playlist);
@@ -96,5 +114,19 @@ public final class PlaylistParserTest {
         assertNotNull(playlist);
         assertEquals(TEST_PLAYLIST_SIZE, playlist.getTracks().size());
         assertEquals(TEST_PLAYLIST_VERSION, playlist.getVersion());
+    }
+
+    @Test
+    public void parseNullInputStream() {
+        // Arrange, act, verify
+        expectedException.expect(IllegalArgumentException.class);
+        PlaylistParser.parse((InputStream) null);
+    }
+
+    @Test
+    public void parseNullString() {
+        // Arrange, act, verify
+        expectedException.expect(IllegalArgumentException.class);
+        PlaylistParser.parse((String) null);
     }
 }
