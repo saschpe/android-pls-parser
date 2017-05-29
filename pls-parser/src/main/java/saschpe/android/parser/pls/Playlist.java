@@ -24,8 +24,8 @@ import java.util.List;
  * Contains a list of tracks and a version.
  */
 public final class Playlist {
-    final List<Track> tracks;
-    final int version;
+    private final List<Track> tracks;
+    private final int version;
 
     Playlist(final List<Track> tracks, final int version) {
         this.tracks = tracks;
