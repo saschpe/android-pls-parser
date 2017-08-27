@@ -33,7 +33,7 @@ for (Playlist.Track track : playlist.getTracks()) {
 
 # Download
 ```groovy
-compile 'saschpe.android:pls-parser:1.0.4'
+compile 'saschpe.android:pls-parser:1.0.5'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
